@@ -17,25 +17,73 @@ const TeamPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('leaderboard');
+  const [availableRoles, setAvailableRoles] = useState([]);
+  const [teamComposition, setTeamComposition] = useState(null);
+  const [selectedMember, setSelectedMember] = useState(null);
+  const [selectedRole, setSelectedRole] = useState('');
 
-  const loadData = async () => {
+const loadData = async () => {
     try {
       setError('');
       setLoading(true);
       
-      const [leaderboardData, challengeData, statsData] = await Promise.all([
+      const [leaderboardData, challengeData, statsData, rolesData, compositionData] = await Promise.all([
         teamService.getLeaderboard(),
         challengesService.getActive(),
-        teamService.getStats()
+        teamService.getStats(),
+        teamService.getAvailableRoles(),
+        teamService.getTeamComposition()
       ]);
       
       setLeaderboard(leaderboardData);
       setCurrentChallenge(challengeData.length > 0 ? challengeData[0] : null);
       setTeamStats(statsData);
+      setAvailableRoles(rolesData);
+      setTeamComposition(compositionData);
     } catch (err) {
       setError('Failed to load team data');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleRoleAssignment = async () => {
+    if (!selectedMember || !selectedRole) return;
+    
+    try {
+      await teamService.assignRole(selectedMember, selectedRole);
+      await loadData(); // Refresh data
+      setSelectedMember(null);
+      setSelectedRole('');
+    } catch (err) {
+      setError('Failed to assign role');
+    }
+  };
+
+  const handleFormTeam = async () => {
+    try {
+      await teamService.formTeam();
+      await loadData(); // Refresh data
+    } catch (err) {
+      setError('Failed to form team');
+    }
+  };
+
+  const getRoleIcon = (role) => {
+    switch (role) {
+      case 'motivator': return 'Zap';
+      case 'recipe-sharer': return 'ChefHat';
+      case 'check-in-leader': return 'CheckCircle';
+      default: return 'User';
+    }
+  };
+
+  const getRoleColor = (role) => {
+    switch (role) {
+      case 'motivator': return 'text-yellow-400';
+      case 'recipe-sharer': return 'text-green-400';
+      case 'check-in-leader': return 'text-blue-400';
+      default: return 'text-slate-400';
     }
   };
 
@@ -46,11 +94,11 @@ const TeamPage = () => {
   if (loading) return <Loading type="list" />;
   if (error) return <Error message={error} onRetry={loadData} />;
 
-  const currentUserId = 2; // Mock current user ID
+const currentUserId = 2; // Mock current user ID
   const tabs = [
     { id: 'leaderboard', label: 'Leaderboard', icon: 'Trophy' },
+    { id: 'formation', label: 'Formation', icon: 'Users' },
     { id: 'chat', label: 'Team Chat', icon: 'MessageSquare' },
-    { id: 'achievements', label: 'Achievements', icon: 'Award' },
   ];
 
   return (
@@ -180,7 +228,7 @@ const TeamPage = () => {
                   actionLabel="Invite Friends"
                 />
               ) : (
-                <div className="space-y-3">
+<div className="space-y-3">
                   {leaderboard.map((player, index) => (
                     <motion.div
                       key={player.Id}
@@ -188,15 +236,193 @@ const TeamPage = () => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 * index }}
                     >
-                      <LeaderboardItem
-                        player={player}
-                        rank={index + 1}
-                        isCurrentUser={player.Id === currentUserId}
-                      />
+                      <Card className="p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3">
+                            <div className="flex items-center space-x-2">
+                              <div className={`text-lg font-bold ${index < 3 ? 'text-accent' : 'text-slate-400'}`}>
+                                #{index + 1}
+                              </div>
+                              {player.role && (
+                                <div className={`w-6 h-6 rounded-full flex items-center justify-center ${getRoleColor(player.role)}`}>
+                                  <ApperIcon name={getRoleIcon(player.role)} size={14} />
+                                </div>
+                              )}
+                            </div>
+                            <div>
+                              <div className="flex items-center space-x-2">
+                                <h3 className="font-semibold text-white">{player.name}</h3>
+                                {player.Id === currentUserId && (
+                                  <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">You</span>
+                                )}
+                              </div>
+                              <div className="flex items-center space-x-2 text-xs text-slate-400">
+                                <span>{player.points?.toLocaleString()} points</span>
+                                {player.role && (
+                                  <span className={getRoleColor(player.role)}>
+                                    • {player.role.replace('-', ' ')}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className={`text-sm font-bold ${player.trend?.direction === 'up' ? 'text-success' : 'text-warning'}`}>
+                              {player.trend?.value}
+                            </div>
+                            <div className="text-xs text-slate-400">{player.lastActive}</div>
+                          </div>
+                        </div>
+                      </Card>
                     </motion.div>
                   ))}
                 </div>
               )}
+            </>
+)}
+
+          {activeTab === 'formation' && (
+            <>
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-bold text-white">Team Formation</h2>
+                <Button variant="primary" size="sm" onClick={handleFormTeam}>
+                  <ApperIcon name="Users" size={14} className="mr-1" />
+                  Form Team
+                </Button>
+              </div>
+
+              {/* Team Composition Overview */}
+              {teamComposition && (
+                <Card className="p-4 mb-4">
+                  <h3 className="font-semibold text-white mb-3">Current Team Roles</h3>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center mx-auto mb-2">
+                        <ApperIcon name="Zap" size={24} className="text-yellow-400" />
+                      </div>
+                      <div className="text-sm font-medium text-white">Step Motivator</div>
+                      <div className="text-xs text-slate-400">
+                        {teamComposition.motivator || 'Unassigned'}
+                      </div>
+                    </div>
+                    
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mx-auto mb-2">
+                        <ApperIcon name="ChefHat" size={24} className="text-green-400" />
+                      </div>
+                      <div className="text-sm font-medium text-white">Recipe Sharer</div>
+                      <div className="text-xs text-slate-400">
+                        {teamComposition.recipeSharer || 'Unassigned'}
+                      </div>
+                    </div>
+                    
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-2">
+                        <ApperIcon name="CheckCircle" size={24} className="text-blue-400" />
+                      </div>
+                      <div className="text-sm font-medium text-white">Check-in Leader</div>
+                      <div className="text-xs text-slate-400">
+                        {teamComposition.checkInLeader || 'Unassigned'}
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              )}
+
+              {/* Role Assignment Interface */}
+              <Card className="p-4 mb-4">
+                <h3 className="font-semibold text-white mb-3">Assign Roles</h3>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">
+                      Select Team Member
+                    </label>
+                    <select
+                      value={selectedMember || ''}
+                      onChange={(e) => setSelectedMember(parseInt(e.target.value) || null)}
+                      className="w-full px-3 py-2 bg-surface border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    >
+                      <option value="">Choose a member...</option>
+                      {leaderboard.map((member) => (
+                        <option key={member.Id} value={member.Id}>
+                          {member.name} {member.role ? `(${member.role.replace('-', ' ')})` : ''}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">
+                      Select Role
+                    </label>
+                    <select
+                      value={selectedRole}
+                      onChange={(e) => setSelectedRole(e.target.value)}
+                      className="w-full px-3 py-2 bg-surface border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    >
+                      <option value="">Choose a role...</option>
+                      {availableRoles.map((role) => (
+                        <option key={role.id} value={role.id}>
+                          {role.name} - {role.description}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <Button
+                    variant="primary"
+                    onClick={handleRoleAssignment}
+                    disabled={!selectedMember || !selectedRole}
+                    className="w-full"
+                  >
+                    <ApperIcon name="UserCheck" size={16} className="mr-2" />
+                    Assign Role
+                  </Button>
+                </div>
+              </Card>
+
+              {/* Role Descriptions */}
+              <Card className="p-4">
+                <h3 className="font-semibold text-white mb-3">Role Descriptions</h3>
+                <div className="space-y-3">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-yellow-500/20 rounded-lg flex items-center justify-center">
+                      <ApperIcon name="Zap" size={16} className="text-yellow-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-white">Step Motivator</h4>
+                      <p className="text-sm text-slate-400">
+                        Encourages team members to reach their daily step goals and maintains team motivation.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
+                      <ApperIcon name="ChefHat" size={16} className="text-green-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-white">Recipe Sharer</h4>
+                      <p className="text-sm text-slate-400">
+                        Shares healthy recipes and nutrition tips to support team's dietary goals.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                      <ApperIcon name="CheckCircle" size={16} className="text-blue-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-white">Check-in Leader</h4>
+                      <p className="text-sm text-slate-400">
+                        Coordinates daily check-ins and ensures all team members stay on track.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
             </>
           )}
 
@@ -271,55 +497,6 @@ const TeamPage = () => {
             </>
           )}
 
-          {activeTab === 'achievements' && (
-            <>
-              <div className="flex items-center justify-between">
-                <h2 className="text-lg font-bold text-white">Team Achievements</h2>
-                <div className="text-sm text-slate-400">
-                  12 unlocked
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                {/* Mock Achievements */}
-                <Card className="text-center p-4">
-                  <div className="w-12 h-12 gradient-accent rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <ApperIcon name="Trophy" size={24} className="text-white" />
-                  </div>
-                  <h3 className="font-semibold text-white text-sm mb-1">First Steps</h3>
-                  <p className="text-xs text-slate-400">Complete first challenge</p>
-                  <div className="mt-2 text-xs text-success">Unlocked</div>
-                </Card>
-
-                <Card className="text-center p-4">
-                  <div className="w-12 h-12 gradient-primary rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <ApperIcon name="Users" size={24} className="text-white" />
-                  </div>
-                  <h3 className="font-semibold text-white text-sm mb-1">Team Player</h3>
-                  <p className="text-xs text-slate-400">Join 5 challenges</p>
-                  <div className="mt-2 text-xs text-success">Unlocked</div>
-                </Card>
-
-                <Card className="text-center p-4 opacity-50">
-                  <div className="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <ApperIcon name="Crown" size={24} className="text-slate-500" />
-                  </div>
-                  <h3 className="font-semibold text-white text-sm mb-1">Champion</h3>
-                  <p className="text-xs text-slate-400">Win 10 challenges</p>
-                  <div className="mt-2 text-xs text-slate-500">Locked</div>
-                </Card>
-
-                <Card className="text-center p-4 opacity-50">
-                  <div className="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <ApperIcon name="Flame" size={24} className="text-slate-500" />
-                  </div>
-                  <h3 className="font-semibold text-white text-sm mb-1">Streak Master</h3>
-                  <p className="text-xs text-slate-400">30-day logging streak</p>
-                  <div className="mt-2 text-xs text-slate-500">Locked</div>
-                </Card>
-              </div>
-            </>
-          )}
         </motion.div>
 
         {/* Join Challenge CTA */}

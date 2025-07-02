@@ -1,119 +1,129 @@
 {
   "teamMembers": [
-    {
+{
       "Id": 1,
       "name": "Alex Johnson",
       "points": 2847,
       "streak": 12,
       "lastActive": "Today",
+      "role": "motivator",
       "trend": {
         "direction": "up",
         "value": "+45"
       },
       "achievements": ["Step Master", "Hydration Hero", "Consistency King"]
     },
-    {
+{
       "Id": 2,
       "name": "Sarah Chen",
       "points": 2650,
       "streak": 8,
       "lastActive": "Today",
+      "role": "recipe-sharer",
       "trend": {
         "direction": "up",
         "value": "+32"
       },
       "achievements": ["Water Warrior", "Weekend Champion"]
     },
-    {
+{
       "Id": 3,
       "name": "Mike Rodriguez",
       "points": 2485,
       "streak": 5,
       "lastActive": "Yesterday",
+      "role": "check-in-leader",
       "trend": {
         "direction": "down",
         "value": "-12"
       },
       "achievements": ["Goal Crusher", "Team Player"]
     },
-    {
+{
       "Id": 4,
       "name": "Emma Wilson",
       "points": 2398,
       "streak": 15,
       "lastActive": "Today",
+      "role": null,
       "trend": {
         "direction": "up",
         "value": "+28"
       },
       "achievements": ["Streak Master", "Motivation Queen", "Step Champion"]
     },
-    {
+{
       "Id": 5,
       "name": "David Kim",
       "points": 2156,
       "streak": 3,
       "lastActive": "2 hours ago",
+      "role": null,
       "trend": {
         "direction": "up",
         "value": "+18"
       },
       "achievements": ["Newcomer", "First Steps"]
     },
-    {
+{
       "Id": 6,
       "name": "Lisa Thompson",
       "points": 2089,
       "streak": 7,
       "lastActive": "Today",
+      "role": null,
       "trend": {
         "direction": "up",
         "value": "+22"
       },
       "achievements": ["Healthy Eater", "Balance Master"]
     },
-    {
+{
       "Id": 7,
       "name": "James Park",
       "points": 1945,
       "streak": 2,
       "lastActive": "Yesterday",
+      "role": null,
       "trend": {
         "direction": "down",
         "value": "-8"
       },
       "achievements": ["Rising Star"]
     },
-    {
+{
       "Id": 8,
       "name": "Maria Garcia",
       "points": 1876,
       "streak": 9,
       "lastActive": "Today",
+      "role": null,
       "trend": {
         "direction": "up",
         "value": "+35"
       },
       "achievements": ["Dedication Award", "Progress Tracker"]
     },
-    {
+{
       "Id": 9,
       "name": "Ryan Taylor",
       "points": 1634,
       "streak": 1,
       "lastActive": "3 hours ago",
+      "role": null,
       "trend": {
         "direction": "up",
         "value": "+15"
       },
       "achievements": ["Fresh Start"]
     },
-    {
+{
       "Id": 10,
       "name": "Olivia Brown",
       "points": 1523,
       "streak": 4,
       "lastActive": "Today",
+      "role": null,
       "trend": {
         "direction": "up",
         "value": "+20"
