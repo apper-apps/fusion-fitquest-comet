@@ -1,0 +1,124 @@
+{
+  "recipes": [
+    {
+      "Id": 1,
+      "title": "Protein Power Bowl",
+      "mealType": "lunch",
+      "calories": 485,
+      "ingredients": ["quinoa", "grilled chicken", "avocado", "black beans", "corn", "lime", "cilantro"],
+      "imageUrl": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "prepTime": 25,
+      "difficulty": "easy"
+    },
+    {
+      "Id": 2,
+      "title": "Green Smoothie Bowl",
+      "mealType": "breakfast",
+      "calories": 320,
+      "ingredients": ["spinach", "banana", "mango", "coconut milk", "chia seeds", "granola", "berries"],
+      "imageUrl": "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=400&h=300&fit=crop",
+      "prepTime": 10,
+      "difficulty": "easy"
+    },
+    {
+      "Id": 3,
+      "title": "Salmon & Veggie Wrap",
+      "mealType": "lunch",
+      "calories": 420,
+      "ingredients": ["whole wheat tortilla", "grilled salmon", "cucumber", "spinach", "red onion", "dill", "greek yogurt"],
+      "imageUrl": "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop",
+      "prepTime": 15,
+      "difficulty": "easy"
+    },
+    {
+      "Id": 4,
+      "title": "Overnight Oats Parfait",
+      "mealType": "breakfast",
+      "calories": 380,
+      "ingredients": ["rolled oats", "almond milk", "honey", "vanilla", "berries", "nuts", "coconut flakes"],
+      "imageUrl": "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=400&h=300&fit=crop",
+      "prepTime": 5,
+      "difficulty": "easy"
+    },
+    {
+      "Id": 5,
+      "title": "Mediterranean Chicken",
+      "mealType": "dinner",
+      "calories": 520,
+      "ingredients": ["chicken breast", "olive oil", "lemon", "garlic", "oregano", "cherry tomatoes", "olives", "feta"],
+      "imageUrl": "https://images.unsplash.com/photo-1532636618078-d61773ed0b9b?w=400&h=300&fit=crop",
+      "prepTime": 35,
+      "difficulty": "medium"
+    },
+    {
+      "Id": 6,
+      "title": "Veggie Stir-Fry",
+      "mealType": "dinner",
+      "calories": 285,
+      "ingredients": ["broccoli", "bell peppers", "snap peas", "carrots", "ginger", "garlic", "soy sauce", "sesame oil"],
+      "imageUrl": "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=300&fit=crop",
+      "prepTime": 20,
+      "difficulty": "easy"
+    },
+    {
+      "Id": 7,
+      "title": "Avocado Toast Supreme",
+      "mealType": "breakfast",
+      "calories": 340,
+      "ingredients": ["whole grain bread", "avocado", "tomato", "red pepper flakes", "lime", "hemp seeds", "microgreens"],
+      "imageUrl": "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=400&h=300&fit=crop",
+      "prepTime": 8,
+      "difficulty": "easy"
+    },
+    {
+      "Id": 8,
+      "title": "Turkey & Sweet Potato Bowl",
+      "mealType": "dinner",
+      "calories": 465,
+      "ingredients": ["ground turkey", "sweet potato", "spinach", "red onion", "garlic", "cumin", "paprika", "tahini"],
+      "imageUrl": "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=300&fit=crop",
+      "prepTime": 30,
+      "difficulty": "medium"
+    },
+    {
+      "Id": 9,
+      "title": "Greek Yogurt Parfait",
+      "mealType": "breakfast",
+      "calories": 295,
+      "ingredients": ["greek yogurt", "honey", "granola", "strawberries", "blueberries", "almonds", "mint"],
+      "imageUrl": "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=300&fit=crop",
+      "prepTime": 5,
+      "difficulty": "easy"
+    },
+    {
+      "Id": 10,
+      "title": "Asian Lettuce Wraps",
+      "mealType": "lunch",
+      "calories": 195,
+      "ingredients": ["butter lettuce", "ground chicken", "water chestnuts", "mushrooms", "ginger", "soy sauce", "sesame oil"],
+      "imageUrl": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop",
+      "prepTime": 20,
+      "difficulty": "easy"
+    },
+    {
+      "Id": 11,
+      "title": "Zucchini Noodle Carbonara",
+      "mealType": "dinner",
+      "calories": 385,
+      "ingredients": ["zucchini", "eggs", "parmesan", "turkey bacon", "garlic", "black pepper", "parsley"],
+      "imageUrl": "https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=400&h=300&fit=crop",
+      "prepTime": 25,
+      "difficulty": "medium"
+    },
+    {
+      "Id": 12,
+      "title": "Chia Seed Pudding",
+      "mealType": "breakfast",
+      "calories": 240,
+      "ingredients": ["chia seeds", "coconut milk", "maple syrup", "vanilla", "berries", "coconut flakes"],
+      "imageUrl": "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?w=400&h=300&fit=crop",
+      "prepTime": 10,
+      "difficulty": "easy"
+    }
+  ]
+}

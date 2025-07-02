@@ -1,0 +1,80 @@
+{
+  "challenges": [
+    {
+      "Id": 1,
+      "name": "New Year Step Challenge",
+      "type": "Step Competition",
+      "startDate": "2024-01-01",
+      "endDate": "2024-01-31",
+      "participants": ["user1", "user2", "user3", "user4", "user5"],
+      "rules": {
+        "steps": 10000,
+        "water": 8,
+        "points": 100
+      },
+      "description": "Start the year strong with daily step goals",
+      "prize": "Winner gets premium membership",
+      "status": "active"
+    },
+    {
+      "Id": 2,
+      "name": "Hydration Heroes",
+      "type": "Water Challenge",
+      "startDate": "2024-01-15",
+      "endDate": "2024-02-15",
+      "participants": ["user1", "user3", "user6", "user7"],
+      "rules": {
+        "water": 10,
+        "points": 50
+      },
+      "description": "Stay hydrated and healthy all month long",
+      "prize": "Fitness tracker for winner",
+      "status": "active"
+    },
+    {
+      "Id": 3,
+      "name": "Weekend Warriors",
+      "type": "Weekend Challenge",
+      "startDate": "2024-02-01",
+      "endDate": "2024-02-29",
+      "participants": ["user2", "user4", "user8", "user9", "user10"],
+      "rules": {
+        "steps": 15000,
+        "points": 150
+      },
+      "description": "Make your weekends count with extra activity",
+      "prize": "Sports gear package",
+      "status": "upcoming"
+    },
+    {
+      "Id": 4,
+      "name": "Consistency Champions",
+      "type": "Streak Challenge",
+      "startDate": "2024-01-01",
+      "endDate": "2024-03-31",
+      "participants": ["user1", "user5", "user11", "user12"],
+      "rules": {
+        "streak": 30,
+        "points": 200
+      },
+      "description": "Build lasting habits with daily consistency",
+      "prize": "Personal trainer session",
+      "status": "active"
+    },
+    {
+      "Id": 5,
+      "name": "December Dash",
+      "type": "Step Competition",
+      "startDate": "2023-12-01",
+      "endDate": "2023-12-31",
+      "participants": ["user1", "user2", "user3"],
+      "rules": {
+        "steps": 8000,
+        "points": 80
+      },
+      "description": "End the year with a fitness bang",
+      "prize": "Gift card bundle",
+      "status": "completed"
+    }
+  ]
+}

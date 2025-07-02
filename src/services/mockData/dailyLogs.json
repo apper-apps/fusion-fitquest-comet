@@ -1,0 +1,67 @@
+{
+  "dailyLogs": [
+    {
+      "Id": 1,
+      "date": "2024-01-15",
+      "userId": "current-user",
+      "steps": 8743,
+      "weight": 165.2,
+      "waterGlasses": 6,
+      "points": 95
+    },
+    {
+      "Id": 2,
+      "date": "2024-01-14",
+      "userId": "current-user",
+      "steps": 12450,
+      "weight": 165.5,
+      "waterGlasses": 8,
+      "points": 135
+    },
+    {
+      "Id": 3,
+      "date": "2024-01-13",
+      "userId": "current-user",
+      "steps": 9876,
+      "weight": 165.8,
+      "waterGlasses": 7,
+      "points": 110
+    },
+    {
+      "Id": 4,
+      "date": "2024-01-12",
+      "userId": "current-user",
+      "steps": 7632,
+      "weight": 166.1,
+      "waterGlasses": 5,
+      "points": 85
+    },
+    {
+      "Id": 5,
+      "date": "2024-01-11",
+      "userId": "current-user",
+      "steps": 11205,
+      "weight": 166.0,
+      "waterGlasses": 9,
+      "points": 125
+    },
+    {
+      "Id": 6,
+      "date": "2024-01-10",
+      "userId": "current-user",
+      "steps": 10543,
+      "weight": 166.3,
+      "waterGlasses": 6,
+      "points": 120
+    },
+    {
+      "Id": 7,
+      "date": "2024-01-09",
+      "userId": "current-user",
+      "steps": 8901,
+      "weight": 166.5,
+      "waterGlasses": 7,
+      "points": 100
+    }
+  ]
+}
