@@ -35,8 +35,21 @@ class DailyLogsService {
       const logDate = new Date(log.date);
       return logDate >= weekAgo;
     });
-  }
+}
 
+  async getMonthly() {
+    await this.delay();
+    const monthAgo = new Date();
+    monthAgo.setDate(monthAgo.getDate() - 30);
+    
+    const monthlyLogs = this.logs.filter(log => {
+      const logDate = new Date(log.date);
+      return logDate >= monthAgo;
+    });
+    
+    // Sort by date
+    return monthlyLogs.sort((a, b) => new Date(a.date) - new Date(b.date));
+  }
   async create(logData) {
     await this.delay();
     const maxId = Math.max(...this.logs.map(item => item.Id), 0);

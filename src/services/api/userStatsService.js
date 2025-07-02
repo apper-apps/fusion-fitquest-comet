@@ -51,15 +51,30 @@ class UserStatsService {
     return weekData;
   }
 
-  async getMonthly() {
+async getMonthly() {
     await this.delay();
-    // Mock monthly stats
+    // Mock monthly stats with trending data
+    const monthlyTrends = [];
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      
+      monthlyTrends.push({
+        date: date.toISOString().split('T')[0],
+        steps: Math.floor(Math.random() * 6000) + 6000,
+        waterGlasses: Math.floor(Math.random() * 5) + 5,
+        weight: 165 + (Math.random() * 4 - 2), // Weight fluctuation
+        points: Math.floor(Math.random() * 60) + 40
+      });
+    }
+    
     return {
       totalSteps: 285430,
       avgDailySteps: 9201,
       totalPoints: 8745,
       challengesCompleted: 3,
       streakBest: 12,
+      trends: monthlyTrends
     };
   }
 

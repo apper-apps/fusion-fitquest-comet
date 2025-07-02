@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { format } from 'date-fns';
+import Chart from 'react-apexcharts';
 import ApperIcon from '@/components/ApperIcon';
 import TrackingForm from '@/components/organisms/TrackingForm';
 import Card from '@/components/atoms/Card';
@@ -14,20 +15,24 @@ const TrackPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [weeklyStats, setWeeklyStats] = useState([]);
-
-  const loadData = async () => {
+  const [monthlyStats, setMonthlyStats] = useState([]);
+  const [chartPeriod, setChartPeriod] = useState('weekly');
+  const [chartsLoading, setChartsLoading] = useState(false);
+const loadData = async () => {
     try {
       setError('');
       setLoading(true);
       
       const today = format(new Date(), 'yyyy-MM-dd');
-      const [todayData, weeklyData] = await Promise.all([
+      const [todayData, weeklyData, monthlyData] = await Promise.all([
         dailyLogsService.getByDate(today),
-        dailyLogsService.getWeekly()
+        dailyLogsService.getWeekly(),
+        dailyLogsService.getMonthly()
       ]);
       
       setTodayLog(todayData);
       setWeeklyStats(weeklyData);
+      setMonthlyStats(monthlyData);
     } catch (err) {
       setError('Failed to load tracking data');
     } finally {
@@ -35,23 +40,205 @@ const TrackPage = () => {
     }
   };
 
+  const loadChartData = async (period) => {
+    try {
+      setChartsLoading(true);
+      if (period === 'monthly') {
+        const monthlyData = await dailyLogsService.getMonthly();
+        setMonthlyStats(monthlyData);
+      } else {
+        const weeklyData = await dailyLogsService.getWeekly();
+        setWeeklyStats(weeklyData);
+      }
+    } catch (err) {
+      // Charts loading error handling
+    } finally {
+      setChartsLoading(false);
+    }
+  };
+
   useEffect(() => {
     loadData();
   }, []);
 
-  const handleSubmit = async (formData) => {
+const handleSubmit = async (formData) => {
     try {
       const result = await dailyLogsService.create(formData);
       setTodayLog(result);
       
-      // Reload weekly stats
-      const weeklyData = await dailyLogsService.getWeekly();
+      // Reload stats for charts
+      const [weeklyData, monthlyData] = await Promise.all([
+        dailyLogsService.getWeekly(),
+        chartPeriod === 'monthly' ? dailyLogsService.getMonthly() : Promise.resolve(monthlyStats)
+      ]);
       setWeeklyStats(weeklyData);
+      if (chartPeriod === 'monthly') {
+        setMonthlyStats(monthlyData);
+      }
       
       return result;
     } catch (error) {
       throw new Error('Failed to save progress');
     }
+  };
+
+  const handleChartPeriodChange = async (period) => {
+    setChartPeriod(period);
+    await loadChartData(period);
+  };
+
+  const getChartData = () => {
+    const data = chartPeriod === 'weekly' ? weeklyStats : monthlyStats;
+    
+    return {
+      steps: data.map(log => ({ x: log.date, y: log.steps || 0 })),
+      water: data.map(log => ({ x: log.date, y: log.waterGlasses || 0 })),
+      weight: data.map(log => ({ x: log.date, y: log.weight || 0 })).filter(item => item.y > 0)
+    };
+  };
+
+  const renderChartsSection = () => {
+    const chartData = getChartData();
+    
+    const chartOptions = {
+      chart: {
+        type: 'line',
+        height: 300,
+        background: 'transparent',
+        toolbar: { show: false },
+        zoom: { enabled: true }
+      },
+      theme: { mode: 'dark' },
+      grid: {
+        borderColor: '#374151',
+        strokeDashArray: 3
+      },
+      xaxis: {
+        type: 'datetime',
+        labels: { 
+          style: { colors: '#9CA3AF' },
+          format: chartPeriod === 'weekly' ? 'dd MMM' : 'dd MMM'
+        }
+      },
+      yaxis: {
+        labels: { style: { colors: '#9CA3AF' } }
+      },
+      legend: {
+        labels: { colors: '#9CA3AF' }
+      },
+      tooltip: {
+        theme: 'dark',
+        style: { fontSize: '12px' }
+      },
+      stroke: {
+        curve: 'smooth',
+        width: 3
+      }
+    };
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+        className="space-y-4"
+      >
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-bold text-white">Progress Trends</h2>
+          <div className="flex bg-slate-800 rounded-lg p-1">
+            {['weekly', 'monthly'].map((period) => (
+              <button
+                key={period}
+                onClick={() => handleChartPeriodChange(period)}
+                disabled={chartsLoading}
+                className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
+                  chartPeriod === period
+                    ? 'bg-primary text-white'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                {period.charAt(0).toUpperCase() + period.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {chartsLoading ? (
+          <Card className="p-6">
+            <div className="flex items-center justify-center h-64">
+              <Loading type="spinner" />
+            </div>
+          </Card>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Steps Chart */}
+            <Card className="p-4">
+              <div className="flex items-center space-x-2 mb-4">
+                <ApperIcon name="Footprints" size={20} className="text-primary" />
+                <h3 className="font-semibold text-white">Steps</h3>
+              </div>
+              <Chart
+                options={{
+                  ...chartOptions,
+                  colors: ['#3B82F6'],
+                  yaxis: {
+                    ...chartOptions.yaxis,
+                    title: { text: 'Steps', style: { color: '#9CA3AF' } }
+                  }
+                }}
+                series={[{ name: 'Steps', data: chartData.steps }]}
+                type="line"
+                height={250}
+              />
+            </Card>
+
+            {/* Water Intake Chart */}
+            <Card className="p-4">
+              <div className="flex items-center space-x-2 mb-4">
+                <ApperIcon name="Droplets" size={20} className="text-info" />
+                <h3 className="font-semibold text-white">Water Intake</h3>
+              </div>
+              <Chart
+                options={{
+                  ...chartOptions,
+                  colors: ['#06B6D4'],
+                  yaxis: {
+                    ...chartOptions.yaxis,
+                    title: { text: 'Glasses', style: { color: '#9CA3AF' } }
+                  }
+                }}
+                series={[{ name: 'Water Glasses', data: chartData.water }]}
+                type="line"
+                height={250}
+              />
+            </Card>
+
+            {/* Weight Chart */}
+            {chartData.weight.length > 0 && (
+              <Card className="p-4 lg:col-span-2">
+                <div className="flex items-center space-x-2 mb-4">
+                  <ApperIcon name="Scale" size={20} className="text-secondary" />
+                  <h3 className="font-semibold text-white">Weight Progress</h3>
+                </div>
+                <Chart
+                  options={{
+                    ...chartOptions,
+                    colors: ['#F59E0B'],
+                    yaxis: {
+                      ...chartOptions.yaxis,
+                      title: { text: 'Weight (lbs)', style: { color: '#9CA3AF' } }
+                    }
+                  }}
+                  series={[{ name: 'Weight', data: chartData.weight }]}
+                  type="line"
+                  height={250}
+                />
+              </Card>
+            )}
+          </div>
+        )}
+      </motion.div>
+    );
   };
 
   if (loading) return <Loading type="cards" />;
@@ -187,7 +374,10 @@ const TrackPage = () => {
               })}
             </div>
           </Card>
-        </motion.div>
+</motion.div>
+
+        {/* Interactive Charts Section */}
+        {renderChartsSection()}
 
         {/* Tracking Form */}
         <motion.div
