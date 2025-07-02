@@ -61,10 +61,28 @@ const ChallengeCard = ({ challenge, onJoin, isJoined = false }) => {
                 <span>{challenge.rules.water} glasses of water daily</span>
               </div>
             )}
-            {challenge.rules?.points && (
+{challenge.rules?.points && (
               <div className="flex items-center space-x-2 text-sm text-slate-400">
                 <ApperIcon name="Star" size={12} />
                 <span>{challenge.rules.points} points to win</span>
+              </div>
+            )}
+            {challenge.rules?.streak && (
+              <div className="flex items-center space-x-2 text-sm text-slate-400">
+                <ApperIcon name="Zap" size={12} />
+                <span>{challenge.rules.streak} day streak goal</span>
+              </div>
+            )}
+            {challenge.rules?.weekendBonus && (
+              <div className="flex items-center space-x-2 text-sm text-slate-400">
+                <ApperIcon name="Calendar" size={12} />
+                <span>Weekend step bonus</span>
+              </div>
+            )}
+            {challenge.rules?.mindfulMinutes && (
+              <div className="flex items-center space-x-2 text-sm text-slate-400">
+                <ApperIcon name="Brain" size={12} />
+                <span>{challenge.rules.mindfulMinutes} min mindfulness daily</span>
               </div>
             )}
           </div>

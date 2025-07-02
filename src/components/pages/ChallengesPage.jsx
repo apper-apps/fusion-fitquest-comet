@@ -56,9 +56,11 @@ const ChallengesPage = () => {
       const startDate = new Date(challenge.startDate);
       const endDate = new Date(challenge.endDate);
       
-      switch (filter) {
+switch (filter) {
         case 'active':
           return startDate <= now && endDate >= now;
+        case 'weekly':
+          return challenge.type === 'Weekly Mini-Challenge';
         case 'upcoming':
           return startDate > now;
         case 'completed':

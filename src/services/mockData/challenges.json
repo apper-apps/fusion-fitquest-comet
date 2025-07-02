@@ -74,7 +74,104 @@
       },
       "description": "End the year with a fitness bang",
       "prize": "Gift card bundle",
+"status": "completed"
+    },
+    {
+      "Id": 6,
+      "name": "7-Day Hydration Streak",
+      "type": "Weekly Mini-Challenge",
+      "startDate": "2024-01-22",
+      "endDate": "2024-01-28",
+      "participants": ["user1", "user4", "user7", "user8"],
+      "rules": {
+        "water": 8,
+        "streak": 7,
+        "points": 35
+      },
+      "description": "Build a perfect week of hydration habits",
+      "prize": "Hydration reminder bottle",
+      "status": "active"
+    },
+    {
+      "Id": 7,
+      "name": "Weekend Step Booster",
+      "type": "Weekly Mini-Challenge",
+      "startDate": "2024-01-27",
+      "endDate": "2024-02-02",
+      "participants": ["user2", "user5", "user9"],
+      "rules": {
+        "steps": 12000,
+        "weekendBonus": true,
+        "points": 40
+      },
+      "description": "Extra steps on weekends, maintain momentum weekdays",
+      "prize": "Weekend workout playlist",
+      "status": "upcoming"
+    },
+    {
+      "Id": 8,
+      "name": "Midweek Motivation",
+      "type": "Weekly Mini-Challenge",
+      "startDate": "2024-01-15",
+      "endDate": "2024-01-21",
+      "participants": ["user3", "user6", "user10", "user11"],
+      "rules": {
+        "steps": 8000,
+        "midweekFocus": true,
+        "points": 30
+      },
+      "description": "Beat the midweek slump with consistent activity",
+      "prize": "Motivation sticker pack",
       "status": "completed"
+    },
+    {
+      "Id": 9,
+      "name": "Quick Start Week",
+      "type": "Weekly Mini-Challenge",
+      "startDate": "2024-02-05",
+      "endDate": "2024-02-11",
+      "participants": [],
+      "rules": {
+        "steps": 6000,
+        "water": 6,
+        "points": 25
+      },
+      "description": "Perfect for beginners - achievable daily goals",
+      "prize": "Beginner's fitness guide",
+      "status": "upcoming"
+    },
+    {
+      "Id": 10,
+      "name": "Energy Boost Week",
+      "type": "Weekly Mini-Challenge",
+      "startDate": "2024-01-29",
+      "endDate": "2024-02-04",
+      "participants": ["user1", "user2", "user12"],
+      "rules": {
+        "steps": 9000,
+        "water": 7,
+        "energyTasks": 3,
+        "points": 45
+      },
+      "description": "Combine movement and hydration for natural energy",
+      "prize": "Energy smoothie recipe book",
+      "status": "upcoming"
+    },
+    {
+      "Id": 11,
+      "name": "Mindful Movement Week",
+      "type": "Weekly Mini-Challenge",
+      "startDate": "2024-02-12",
+      "endDate": "2024-02-18",
+      "participants": [],
+      "rules": {
+        "steps": 7500,
+        "mindfulMinutes": 10,
+        "points": 35
+      },
+      "description": "Combine physical activity with mindfulness practice",
+      "prize": "Meditation app subscription",
+      "status": "upcoming"
     }
   ]
 }
