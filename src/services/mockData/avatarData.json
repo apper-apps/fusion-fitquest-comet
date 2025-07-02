@@ -1,0 +1,275 @@
+{
+  "currentAvatar": {
+    "Id": 1,
+    "userId": 1,
+    "equippedItems": {
+      "gear": {
+        "helmet": null,
+        "shirt": "basic-tshirt",
+        "pants": "basic-shorts",
+        "shoes": "basic-sneakers",
+        "accessory": null
+      },
+      "background": "default-gym",
+      "badge": "newcomer"
+    },
+    "colors": {
+      "primary": "#3B82F6",
+      "secondary": "#10B981",
+      "accent": "#F59E0B"
+    }
+  },
+  "unlockableGear": [
+    {
+      "Id": 1,
+      "type": "helmet",
+      "name": "Basic Cap",
+      "description": "A simple workout cap",
+      "itemId": "basic-cap",
+      "unlocked": true,
+      "requirements": { "points": 0 }
+    },
+    {
+      "Id": 2,
+      "type": "helmet",
+      "name": "Pro Headband",
+      "description": "Professional athlete headband",
+      "itemId": "pro-headband",
+      "unlocked": false,
+      "requirements": { "points": 500 }
+    },
+    {
+      "Id": 3,
+      "type": "helmet",
+      "name": "Champion Crown",
+      "description": "Crown for true champions",
+      "itemId": "champion-crown",
+      "unlocked": false,
+      "requirements": { "points": 2000, "achievements": ["Step Master"] }
+    },
+    {
+      "Id": 4,
+      "type": "shirt",
+      "name": "Basic T-Shirt",
+      "description": "Comfortable workout t-shirt",
+      "itemId": "basic-tshirt",
+      "unlocked": true,
+      "requirements": { "points": 0 }
+    },
+    {
+      "Id": 5,
+      "type": "shirt",
+      "name": "Tank Top",
+      "description": "Breathable tank top",
+      "itemId": "tank-top",
+      "unlocked": false,
+      "requirements": { "points": 200 }
+    },
+    {
+      "Id": 6,
+      "type": "shirt",
+      "name": "Compression Shirt",
+      "description": "High-performance compression wear",
+      "itemId": "compression-shirt",
+      "unlocked": false,
+      "requirements": { "points": 800 }
+    },
+    {
+      "Id": 7,
+      "type": "shirt",
+      "name": "Champion Jersey",
+      "description": "Elite athlete jersey",
+      "itemId": "champion-jersey",
+      "unlocked": false,
+      "requirements": { "points": 1500, "achievements": ["Consistency King"] }
+    },
+    {
+      "Id": 8,
+      "type": "pants",
+      "name": "Basic Shorts",
+      "description": "Comfortable workout shorts",
+      "itemId": "basic-shorts",
+      "unlocked": true,
+      "requirements": { "points": 0 }
+    },
+    {
+      "Id": 9,
+      "type": "pants",
+      "name": "Athletic Leggings",
+      "description": "Flexible athletic leggings",
+      "itemId": "athletic-leggings",
+      "unlocked": false,
+      "requirements": { "points": 300 }
+    },
+    {
+      "Id": 10,
+      "type": "pants",
+      "name": "Pro Joggers",
+      "description": "Professional jogger pants",
+      "itemId": "pro-joggers",
+      "unlocked": false,
+      "requirements": { "points": 600 }
+    },
+    {
+      "Id": 11,
+      "type": "shoes",
+      "name": "Basic Sneakers",
+      "description": "Comfortable sneakers",
+      "itemId": "basic-sneakers",
+      "unlocked": true,
+      "requirements": { "points": 0 }
+    },
+    {
+      "Id": 12,
+      "type": "shoes",
+      "name": "Running Shoes",
+      "description": "Lightweight running shoes",
+      "itemId": "running-shoes",
+      "unlocked": false,
+      "requirements": { "points": 400 }
+    },
+    {
+      "Id": 13,
+      "type": "shoes",
+      "name": "Cross Trainers",
+      "description": "Versatile cross training shoes",
+      "itemId": "cross-trainers",
+      "unlocked": false,
+      "requirements": { "points": 700 }
+    },
+    {
+      "Id": 14,
+      "type": "accessory",
+      "name": "Fitness Watch",
+      "description": "Smart fitness tracker",
+      "itemId": "fitness-watch",
+      "unlocked": false,
+      "requirements": { "points": 1000 }
+    },
+    {
+      "Id": 15,
+      "type": "accessory",
+      "name": "Wireless Earbuds",
+      "description": "Premium workout earbuds",
+      "itemId": "wireless-earbuds",
+      "unlocked": false,
+      "requirements": { "points": 1200 }
+    }
+  ],
+  "unlockableBackgrounds": [
+    {
+      "Id": 1,
+      "name": "Default Gym",
+      "description": "Basic gym environment",
+      "backgroundId": "default-gym",
+      "unlocked": true,
+      "requirements": { "points": 0 }
+    },
+    {
+      "Id": 2,
+      "name": "Outdoor Park",
+      "description": "Fresh outdoor workout space",
+      "backgroundId": "outdoor-park",
+      "unlocked": false,
+      "requirements": { "points": 250 }
+    },
+    {
+      "Id": 3,
+      "name": "Modern Studio",
+      "description": "Sleek modern fitness studio",
+      "backgroundId": "modern-studio",
+      "unlocked": false,
+      "requirements": { "points": 500 }
+    },
+    {
+      "Id": 4,
+      "name": "Beach Workout",
+      "description": "Tropical beach setting",
+      "backgroundId": "beach-workout",
+      "unlocked": false,
+      "requirements": { "points": 750 }
+    },
+    {
+      "Id": 5,
+      "name": "Mountain Peak",
+      "description": "Scenic mountain top",
+      "backgroundId": "mountain-peak",
+      "unlocked": false,
+      "requirements": { "points": 1000, "achievements": ["Step Master"] }
+    },
+    {
+      "Id": 6,
+      "name": "Elite Facility",
+      "description": "Professional training facility",
+      "backgroundId": "elite-facility",
+      "unlocked": false,
+      "requirements": { "points": 1500, "achievements": ["Hydration Hero"] }
+    }
+  ],
+  "unlockableBadges": [
+    {
+      "Id": 1,
+      "name": "Newcomer",
+      "description": "Welcome to FitQuest!",
+      "badgeId": "newcomer",
+      "unlocked": true,
+      "requirements": { "points": 0 }
+    },
+    {
+      "Id": 2,
+      "name": "First Steps",
+      "description": "Completed first workout",
+      "badgeId": "first-steps",
+      "unlocked": false,
+      "requirements": { "points": 50 }
+    },
+    {
+      "Id": 3,
+      "name": "Dedicated",
+      "description": "5 day workout streak",
+      "badgeId": "dedicated",
+      "unlocked": false,
+      "requirements": { "points": 300 }
+    },
+    {
+      "Id": 4,
+      "name": "Achiever",
+      "description": "Completed first challenge",
+      "badgeId": "achiever",
+      "unlocked": false,
+      "requirements": { "achievements": ["Goal Crusher"] }
+    },
+    {
+      "Id": 5,
+      "name": "Team Player",
+      "description": "Active in team challenges",
+      "badgeId": "team-player",
+      "unlocked": false,
+      "requirements": { "achievements": ["Team Player"] }
+    },
+    {
+      "Id": 6,
+      "name": "Hydration Master",
+      "description": "Consistent water intake tracking",
+      "badgeId": "hydration-master",
+      "unlocked": false,
+      "requirements": { "achievements": ["Hydration Hero"] }
+    },
+    {
+      "Id": 7,
+      "name": "Step Champion",
+      "description": "Walking milestone achieved",
+      "badgeId": "step-champion",
+      "unlocked": false,
+      "requirements": { "achievements": ["Step Master"] }
+    },
+    {
+      "Id": 8,
+      "name": "Elite Athlete",
+      "description": "Top performer status",
+      "badgeId": "elite-athlete",
+      "unlocked": false,
+      "requirements": { "points": 2500, "achievements": ["Consistency King", "Step Master"] }
+    }
+  ]
+}

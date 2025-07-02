@@ -7,18 +7,20 @@ import ChallengesPage from '@/components/pages/ChallengesPage';
 import TrackPage from '@/components/pages/TrackPage';
 import RecipesPage from '@/components/pages/RecipesPage';
 import TeamPage from '@/components/pages/TeamPage';
+import ProfilePage from '@/components/pages/ProfilePage';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-background text-white font-body">
-        <Routes>
+<Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path="challenges" element={<ChallengesPage />} />
             <Route path="track" element={<TrackPage />} />
             <Route path="recipes" element={<RecipesPage />} />
             <Route path="team" element={<TeamPage />} />
+            <Route path="profile" element={<ProfilePage />} />
           </Route>
         </Routes>
         

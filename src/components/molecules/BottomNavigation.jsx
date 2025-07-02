@@ -10,8 +10,8 @@ const BottomNavigation = () => {
     { id: 'track', path: '/track', icon: 'Plus', label: 'Track' },
     { id: 'recipes', path: '/recipes', icon: 'ChefHat', label: 'Recipes' },
     { id: 'team', path: '/team', icon: 'Users', label: 'Team' },
+    { id: 'profile', path: '/profile', icon: 'User', label: 'Profile' },
   ];
-
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-surface border-t border-slate-700/50 z-50">
       <div className="flex items-center justify-around py-2 px-4 max-w-md mx-auto">
